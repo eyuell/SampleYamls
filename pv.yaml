@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: my-pv
+spec:
+  capacity:
+    storage: 1Gi               # REQUIRED
+  accessModes:
+    - ReadWriteOnce            # REQUIRED
+  hostPath:
+    path: /data/my-pv          # one volume source REQUIRED
+  persistentVolumeReclaimPolicy: Retain  # optional
