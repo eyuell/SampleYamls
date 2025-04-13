@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: my-statefulset
+spec:
+  serviceName: "my-service"     # REQUIRED
+  replicas: 3                   # optional
+  selector:                     # REQUIRED
+    matchLabels:
+      app: my-stateful
+  template:                     # REQUIRED
+    metadata:
+      labels:
+        app: my-stateful
+    spec:
+      containers:
+        - name: my-container
+          image: nginx
+  volumeClaimTemplates:         # optional
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
