@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: my-job
+spec:
+  template:                    # REQUIRED
+    spec:
+      containers:
+        - name: my-job
+          image: busybox
+          command: ["echo", "Hello"]
+      restartPolicy: Never     # REQUIRED
+  backoffLimit: 4              # optional
+  completions: 1               # optional
+  parallelism: 1               # optional
