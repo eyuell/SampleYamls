@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: my-daemonset
+spec:
+  selector:                    # REQUIRED
+    matchLabels:
+      app: my-daemon
+  template:                    # REQUIRED
+    metadata:
+      labels:
+        app: my-daemon
+    spec:
+      containers:
+        - name: my-container
+          image: busybox
+          command: ["sleep", "3600"]
+  updateStrategy:              # optional
+    type: RollingUpdate
