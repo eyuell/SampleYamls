@@ -1,0 +1,39 @@
+apiVersion: apps/v1  # REQUIRED
+kind: Deployment     # REQUIRED
+metadata:
+  name: my-app       # REQUIRED
+  namespace: default           # optional
+  labels:                      # optional
+    app: my-app
+  annotations:                 # optional
+    description: "My App Deployment"
+spec:
+  replicas: 3                  # optional (default: 1)
+  selector:                    # REQUIRED
+    matchLabels:
+      app: my-app
+  strategy:                    # optional
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:                    # REQUIRED
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:              # REQUIRED
+        - name: my-container   # REQUIRED
+          image: nginx:latest # REQUIRED
+          ports:               # optional
+            - containerPort: 80
+          env:                 # optional
+            - name: ENV_VAR
+              value: value
+          resources:           # optional
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
